@@ -1,15 +1,36 @@
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import { useIntervalFn } from '@vueuse/core';
+import { useIntervalFn } from '@vueuse/core'
 
-const currentTime = ref(new Date())
+export interface UseInternalClockOptions {
+  /**
+   *
+   * The precision with which the clock will update.
+   *
+   */
+  tickRate?: number
+}
 
-export const useInternalClock = () => {
-  useIntervalFn (() => {
-    currentTime.value = new Date();
-  }, 1000)
+const defaultOptions = {
+  tickRate: 1000,
+}
+
+export const useInternalClock = (options?: UseInternalClockOptions) => {
+  const {
+    tickRate,
+  } = options || defaultOptions
+
+  const currentTime = ref(new Date())
+
+  const { pause, resume } = useIntervalFn (() => {
+    currentTime.value = new Date()
+  }, tickRate)
 
   return {
-    currentTime
+    pause,
+    resume,
+    currentTime,
   }
 }
+
+export type UseInternalClockReturn = ReturnType<typeof useInternalClock>
