@@ -1,6 +1,6 @@
 # useThis()
 
-`useThis()` showcases use cases and examples for the Vue 3 Composition API.
+`useThis()` showcases use cases and examples for the Vue 3 Composition API and provides a test bed for composables that will be PR'd to @vueuse/vueuse when ready.
 
 # Vue 3 + TypeScript + Vite
 
